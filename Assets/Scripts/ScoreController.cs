@@ -1,4 +1,5 @@
 using SimpleMan.CoroutineExtensions;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,8 @@ public class ScoreController : MonoBehaviour
         _canvasGroupController.SetAlpha(false);
         this.Delay(0.5f, () => { _canvasGroupController.SetAlpha(true, 1); });
     }
+    
+
 
     public void OnGameOver()
     {
@@ -38,9 +41,23 @@ public class ScoreController : MonoBehaviour
     }
     public void OnReset(BoardController.BoardFieldCharacters winner)
     {
-        int index = ((int)winner) - 1;
-        _scoresData[index].Value++;
-        _scoresData[index].Text.text = _scoresData[index].Value.ToString();
+        Action<int> scoreMethod = winner == BoardController.BoardFieldCharacters.Empty ? ScoreDraw : ScoreWin;
+        scoreMethod(((int)winner) - 1);
+    }
+    private void ScoreWin(int winningIndex)
+    {
+        _scoresData[winningIndex].Value++;
+        _scoresData[winningIndex].Text.text = _scoresData[winningIndex].Value.ToString();
+
+        _canvasGroupController.SetAlpha(true, 1);
+    }
+    private void ScoreDraw(int winningIndex)
+    {
+        for(int i=0; i<2; i++)
+        {
+            _scoresData[i].Value++;
+            _scoresData[i].Text.text = _scoresData[i].Value.ToString();
+        }
 
         _canvasGroupController.SetAlpha(true, 1);
     }

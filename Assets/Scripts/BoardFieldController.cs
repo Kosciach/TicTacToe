@@ -23,12 +23,12 @@ public class BoardFieldController : MonoBehaviour
 
         StartCoroutine(GameOverAnimation(Vector3.zero));
     }
-    public void OnDraw()
+    public void OnDraw(Vector3 gameOverPosition)
     {
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
 
-        StartCoroutine(GameOverAnimation(Vector3.zero));
+        StartCoroutine(GameOverAnimation(gameOverPosition));
     }
 
 
@@ -45,6 +45,7 @@ public class BoardFieldController : MonoBehaviour
         transform.LeanScale(Vector2.zero, 0.2f);
         yield return new WaitForSeconds(0.2f);
 
-        Instantiate(_explosion, Vector3.zero, Quaternion.identity);
+        Instantiate(_explosion, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

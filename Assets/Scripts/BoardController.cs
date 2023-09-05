@@ -2,31 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleMan.CoroutineExtensions;
-using System;
 
 public class BoardController : MonoBehaviour
 {
     [Header("====References====")]
     [SerializeField] CanvasGroupController _canvasGroupController;
     [SerializeField] ScoreController _scoreController;
+    [SerializeField] TurnIndicatorController _turnIndicatorController;
 
 
     [Space(20)]
     [Header("====Debugs====")]
-    [SerializeField] bool _isGameOver;
+    [SerializeField] bool _isGameOver; public bool IsGameOver { get { return _isGameOver; } }
     [SerializeField] BoardFieldCharacters _winner;
     [Space(5)]
     [SerializeField] BoardField[] _boardFields = new BoardField[9];
     [Space(5)]
     [SerializeField] BoardFieldCharacters _currentTurn;
     [SerializeField] int _turnCount = 1;
-
+    [Space(5)]
+    [SerializeField] List<CharacterIndexesTrackerClass> _characterIndexesTracker = new List<CharacterIndexesTrackerClass>();
 
     [Space(20)]
     [Header("====Settings====")]
     [SerializeField] GameObject[] _characterGameObjects = new GameObject[2];
 
 
+
+
+    [System.Serializable]
+    public class CharacterIndexesTrackerClass
+    {
+        public string name;
+        public List<int> Indexes;
+    }
     [System.Serializable]
     public struct BoardField
     {
@@ -49,8 +58,6 @@ public class BoardController : MonoBehaviour
     }
 
 
-
-
     public void BoardFieldPress(int index)
     {
         if (_boardFields[index].Character != BoardFieldCharacters.Empty || _isGameOver) return;
@@ -58,10 +65,11 @@ public class BoardController : MonoBehaviour
         SetField(index);
         SpawnCharacterOnCanvas(index);
         CheckOutcome(index);
-        SetNextCharacter();
+        SetNextTurn();
     }
     private void SetField(int index)
     {
+        _characterIndexesTracker[((int)_currentTurn) - 1].Indexes.Add(index);
         _boardFields[index].Character = _currentTurn;
         _turnCount++;
     }
@@ -87,12 +95,19 @@ public class BoardController : MonoBehaviour
         else if (_turnCount >= 9)
         {
             _winner = BoardFieldCharacters.Empty;
+
+            int OIndex = _characterIndexesTracker[0].Indexes[Random.Range(0, _characterIndexesTracker[0].Indexes.Count)];
+            int XIndex = _characterIndexesTracker[1].Indexes[Random.Range(0, _characterIndexesTracker[1].Indexes.Count)];
+            _boardFields[OIndex].Field.GetChild(0).GetComponent<BoardFieldController>()?.OnDraw(new Vector3(-350, 0, 0));
+            _boardFields[XIndex].Field.GetChild(0).GetComponent<BoardFieldController>()?.OnDraw(new Vector3(350, 0, 0));
+
             StartCoroutine(GameOver());
         }
     }
-    private void SetNextCharacter()
+    private void SetNextTurn()
     {
         _currentTurn = _currentTurn == BoardFieldCharacters.O ? BoardFieldCharacters.X : BoardFieldCharacters.O;
+        _turnIndicatorController.NextTurn(_currentTurn);
     }
 
 
@@ -112,6 +127,7 @@ public class BoardController : MonoBehaviour
     private void ResetBoard()
     {
         _scoreController.OnReset(_winner);
+        _turnIndicatorController.OnReset();
 
         _winner = BoardFieldCharacters.Empty;
         _currentTurn = BoardFieldCharacters.O;
@@ -122,6 +138,8 @@ public class BoardController : MonoBehaviour
             _boardFields[i].Character = BoardFieldCharacters.Empty;
             if(_boardFields[i].Field.childCount > 0) Destroy(_boardFields[i].Field.GetChild(0).gameObject);
         }
+
+        for(int i=0; i<2; i++) _characterIndexesTracker[i].Indexes.Clear();
 
         transform.LeanScale(Vector3.one, 1).setEaseInOutSine();
         _canvasGroupController.SetAlpha(true, 1);
