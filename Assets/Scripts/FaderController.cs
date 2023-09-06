@@ -24,4 +24,10 @@ public class FaderController : MonoBehaviour
             _canvasGroupController.ToggleInteractable(false);
         });
     }
+
+
+    public void ToggleFade(bool enable, float duration)
+    {
+        _canvasGroupController.SetAlpha(enable, 1);
+    }
 }

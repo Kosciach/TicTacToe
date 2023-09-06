@@ -8,6 +8,7 @@ public class PauseController : MonoBehaviour
     [Header("====References====")]
     [SerializeField] CanvasGroupController _canvasGroupController;
     [SerializeField] BoardController _boardController;
+    [SerializeField] FaderController _fader;
 
     private void Awake()
     {
@@ -30,5 +31,12 @@ public class PauseController : MonoBehaviour
         _canvasGroupController.SetAlpha(false, 0.1f);
         _canvasGroupController.ToggleBlocksRaycast(false);
         _canvasGroupController.ToggleInteractable(false);
+    }
+
+
+    public void Exit()
+    {
+        _fader.ToggleFade(true, 0.5f);
+        this.Delay(1.1f, () => { Application.Quit(); });
     }
 }

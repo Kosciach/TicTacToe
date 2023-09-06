@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class TurnIndicatorController : MonoBehaviour
 {
-    [Header("====Header====")]
+    [Header("====References====")]
+    [SerializeField] StartingCharacterController _startingCharacterController;
     [SerializeField] Transform[] _indicatorParents;
 
 
 
-    public void NextTurn(BoardController.BoardFieldCharacters currentTurn)
+    public void MoveIndicator(BoardController.BoardFieldCharacters currentTurn)
     {
         transform.LeanScale(Vector3.zero, 0.1f).setOnComplete(() =>
         {
@@ -20,6 +21,6 @@ public class TurnIndicatorController : MonoBehaviour
     }
     public void OnReset()
     {
-        NextTurn(BoardController.BoardFieldCharacters.O);
+        MoveIndicator(_startingCharacterController.StartingCharacterSettings.StartingCharacter);
     }
 }

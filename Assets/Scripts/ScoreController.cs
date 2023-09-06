@@ -61,4 +61,13 @@ public class ScoreController : MonoBehaviour
 
         _canvasGroupController.SetAlpha(true, 1);
     }
+
+    public void ResetScore()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            _scoresData[i].Value = 0;
+            _scoresData[i].Text.text = _scoresData[i].Value.ToString();
+        }
+    }
 }

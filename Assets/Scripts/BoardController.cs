@@ -9,6 +9,8 @@ public class BoardController : MonoBehaviour
     [SerializeField] CanvasGroupController _canvasGroupController;
     [SerializeField] ScoreController _scoreController;
     [SerializeField] TurnIndicatorController _turnIndicatorController;
+    [SerializeField] PauseButtonController _pauseButtonController;
+    [SerializeField] StartingCharacterController _startingCharacterController;
 
 
     [Space(20)]
@@ -47,8 +49,11 @@ public class BoardController : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 60;
+
         transform.localScale = Vector3.zero;
         _canvasGroupController.SetAlpha(false);
+        _currentTurn = _startingCharacterController.StartingCharacterSettings.StartingCharacter;
 
         this.Delay(0.5f, () =>
         {
@@ -57,6 +62,14 @@ public class BoardController : MonoBehaviour
         });
     }
 
+
+    public void ChangeCharacterOnStart(BoardFieldCharacters startingCharacter)
+    {
+        if (_turnCount > 1) return;
+
+        _currentTurn = startingCharacter;
+        _turnIndicatorController.MoveIndicator(_currentTurn);
+    }
 
     public void BoardFieldPress(int index)
     {
@@ -107,7 +120,7 @@ public class BoardController : MonoBehaviour
     private void SetNextTurn()
     {
         _currentTurn = _currentTurn == BoardFieldCharacters.O ? BoardFieldCharacters.X : BoardFieldCharacters.O;
-        _turnIndicatorController.NextTurn(_currentTurn);
+        _turnIndicatorController.MoveIndicator(_currentTurn);
     }
 
 
@@ -116,6 +129,7 @@ public class BoardController : MonoBehaviour
     {
         _isGameOver = true;
         _scoreController.OnGameOver();
+        _pauseButtonController.OnGameOver();
         yield return new WaitForSeconds(0.1f);
 
         transform.LeanScale(Vector3.zero, 1).setEaseInOutSine();
@@ -128,9 +142,10 @@ public class BoardController : MonoBehaviour
     {
         _scoreController.OnReset(_winner);
         _turnIndicatorController.OnReset();
+        _pauseButtonController.OnReset();
 
         _winner = BoardFieldCharacters.Empty;
-        _currentTurn = BoardFieldCharacters.O;
+        _currentTurn = _startingCharacterController.StartingCharacterSettings.StartingCharacter;
         _turnCount = 0;
 
         for(int i=0; i<9; i++)
