@@ -9,6 +9,7 @@ public class ColorPickerController : MonoBehaviour
     [Header("====References====")]
     [SerializeField] Camera _camera;
     [SerializeField] Image _pauseMenu;
+    [SerializeField] Image _creditsMenu;
     [Space(5)]
     [SerializeField] Slider _redSlider;
     [SerializeField] Slider _greenSlider;
@@ -75,6 +76,7 @@ public class ColorPickerController : MonoBehaviour
     {
         _camera.backgroundColor = _backgroundColor;
         _pauseMenu.color = _backgroundColor;
+        _creditsMenu.color = _backgroundColor;
     }
 
 

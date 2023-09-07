@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleMan.CoroutineExtensions;
+using AYellowpaper.SerializedCollections;
 
 public class BoardController : MonoBehaviour
 {
@@ -28,7 +29,6 @@ public class BoardController : MonoBehaviour
     [Space(20)]
     [Header("====Settings====")]
     [SerializeField] GameObject[] _characterGameObjects = new GameObject[2];
-
 
 
 

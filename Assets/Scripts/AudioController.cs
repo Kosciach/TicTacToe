@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,8 @@ public class AudioController : MonoBehaviour
 
     [Space(20)]
     [Header("====Settings====")]
-    [SerializeField] AudioClip[] _sounds;
+    [SerializedDictionary("Name","Clip")]
+    [SerializeField] SerializedDictionary<string, AudioClip> _sounds;
 
 
     [System.Serializable]
@@ -86,9 +88,9 @@ public class AudioController : MonoBehaviour
     }
 
 
-    public void PlaySound(int index)
+    public void PlaySound(string soundName)
     {
-        _soundsSource.clip = _sounds[index];
+        _soundsSource.clip = _sounds[soundName];
         _soundsSource.Play();
     }
 }
