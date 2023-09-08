@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class AudioController : MonoBehaviour
 {
+    private static AudioController instance; public static AudioController Instance { get { return instance; } }
+
     [Header("====Referecens====")]
     [SerializeField] Slider _musicSlider;
     [SerializeField] Slider _soundsSlider;
@@ -35,7 +37,14 @@ public class AudioController : MonoBehaviour
 
     private void Awake()
     {
-        if (File.Exists(Application.dataPath + "/AudioSettings.json")) LoadSettings();
+        if(Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+
+        if (File.Exists(Application.persistentDataPath + "/AudioSettings.json")) LoadSettings();
         else
         {
             _audioSettings.MusicVolume = 0.5f;
@@ -74,11 +83,11 @@ public class AudioController : MonoBehaviour
     private void SaveSettings()
     {
         string jsonAudioSettings = JsonUtility.ToJson(_audioSettings);
-        File.WriteAllText(Application.dataPath + "/AudioSettings.json", jsonAudioSettings);
+        File.WriteAllText(Application.persistentDataPath + "/AudioSettings.json", jsonAudioSettings);
     }
     private void LoadSettings()
     {
-        string jsonAudioSettings = File.ReadAllText(Application.dataPath + "/AudioSettings.json");
+        string jsonAudioSettings = File.ReadAllText(Application.persistentDataPath + "/AudioSettings.json");
         _audioSettings = JsonUtility.FromJson<AudioSettings>(jsonAudioSettings);
 
         _musicSlider.value = _audioSettings.MusicVolume;

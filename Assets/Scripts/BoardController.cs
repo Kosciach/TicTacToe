@@ -85,6 +85,7 @@ public class BoardController : MonoBehaviour
         _characterIndexesTracker[((int)_currentTurn) - 1].Indexes.Add(index);
         _boardFields[index].Character = _currentTurn;
         _turnCount++;
+        AudioController.Instance.PlaySound("BoardPress");
     }
     private void SpawnCharacterOnCanvas(int index)
     {

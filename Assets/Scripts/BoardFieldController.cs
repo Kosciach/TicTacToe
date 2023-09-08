@@ -45,6 +45,7 @@ public class BoardFieldController : MonoBehaviour
         transform.LeanScale(Vector2.zero, 0.2f);
         yield return new WaitForSeconds(0.2f);
 
+        AudioController.Instance.PlaySound("Explosion");
         Instantiate(_explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

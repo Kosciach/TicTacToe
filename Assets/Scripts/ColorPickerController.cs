@@ -33,7 +33,7 @@ public class ColorPickerController : MonoBehaviour
 
     private void Awake()
     {
-        if (File.Exists(Application.dataPath + "/ColorPickerSettings.json")) LoadSettings();
+        if (File.Exists(Application.persistentDataPath + "/ColorPickerSettings.json")) LoadSettings();
         else
         {
             _colorPickerSettings.Red = 0.8078432f;
@@ -83,11 +83,11 @@ public class ColorPickerController : MonoBehaviour
     private void SaveSettings()
     {
         string jsonColorPickerSettings = JsonUtility.ToJson(_colorPickerSettings);
-        File.WriteAllText(Application.dataPath + "/ColorPickerSettings.json", jsonColorPickerSettings);
+        File.WriteAllText(Application.persistentDataPath + "/ColorPickerSettings.json", jsonColorPickerSettings);
     }
     private void LoadSettings()
     {
-        string jsonColorPickerSettings = File.ReadAllText(Application.dataPath + "/ColorPickerSettings.json");
+        string jsonColorPickerSettings = File.ReadAllText(Application.persistentDataPath + "/ColorPickerSettings.json");
         _colorPickerSettings = JsonUtility.FromJson<ColorPickerSettings>(jsonColorPickerSettings);
 
         _redSlider.value = _colorPickerSettings.Red;

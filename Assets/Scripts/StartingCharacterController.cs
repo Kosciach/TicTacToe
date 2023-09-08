@@ -26,7 +26,7 @@ public class StartingCharacterController : MonoBehaviour
 
     private void Awake()
     {
-        if (File.Exists(Application.dataPath + "/StartingCharacterSettings.json")) LoadStartingCharacter();
+        if (File.Exists(Application.persistentDataPath + "/StartingCharacterSettings.json")) LoadStartingCharacter();
         else
         {
             _startingCharacterSettings.StartingCharacter = BoardController.BoardFieldCharacters.O;
@@ -39,17 +39,25 @@ public class StartingCharacterController : MonoBehaviour
 
     public void SetStartingO()
     {
+        if (_startingCharacterSettings.StartingCharacter == BoardController.BoardFieldCharacters.O) return;
+
         _startingCharacterSettings.StartingCharacter = BoardController.BoardFieldCharacters.O;
         _boardController.ChangeCharacterOnStart(_startingCharacterSettings.StartingCharacter);
         SaveStartingCharacter();
         MoveIndicator(_parentO);
+
+        AudioController.Instance.PlaySound("StartingCharacterChange");
     }
     public void SetStartingX()
     {
+        if (_startingCharacterSettings.StartingCharacter == BoardController.BoardFieldCharacters.X) return;
+
         _startingCharacterSettings.StartingCharacter = BoardController.BoardFieldCharacters.X;
         _boardController.ChangeCharacterOnStart(_startingCharacterSettings.StartingCharacter);
         SaveStartingCharacter();
         MoveIndicator(_parentX);
+
+        AudioController.Instance.PlaySound("StartingCharacterChange");
     }
 
     private void MoveIndicator(Transform parent)
@@ -68,11 +76,11 @@ public class StartingCharacterController : MonoBehaviour
     private void SaveStartingCharacter()
     {
         string jsonStartingCharacterSettings = JsonUtility.ToJson(_startingCharacterSettings);
-        File.WriteAllText(Application.dataPath + "/StartingCharacterSettings.json", jsonStartingCharacterSettings);
+        File.WriteAllText(Application.persistentDataPath + "/StartingCharacterSettings.json", jsonStartingCharacterSettings);
     }
     private void LoadStartingCharacter()
     {
-        string jsonStartingCharacterSettings = File.ReadAllText(Application.dataPath + "/StartingCharacterSettings.json");
+        string jsonStartingCharacterSettings = File.ReadAllText(Application.persistentDataPath + "/StartingCharacterSettings.json");
         _startingCharacterSettings = JsonUtility.FromJson<StartingCharacterSettingsClass>(jsonStartingCharacterSettings);
 
         _boardController.ChangeCharacterOnStart(_startingCharacterSettings.StartingCharacter);
