@@ -36,7 +36,7 @@ public class PauseController : MonoBehaviour
 
     public void Exit()
     {
-        _fader.ToggleFade(true, 0.1f);
-        this.Delay(0.1f, () => { Application.Quit(); });
+        _fader.ToggleFade(true, 0.2f);
+        this.Delay(0.25f, () => { Application.Quit(); });
     }
 }

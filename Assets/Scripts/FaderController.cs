@@ -28,6 +28,6 @@ public class FaderController : MonoBehaviour
 
     public void ToggleFade(bool enable, float duration)
     {
-        _canvasGroupController.SetAlpha(enable, 1);
+        _canvasGroupController.SetAlpha(enable, duration);
     }
 }
