@@ -12,5 +12,9 @@
     JustTicTacToe is a minimalistic version off popular game TicTacToe.
   </p>
 <br>
-  
-<img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM2NjU2NC5qcGc=/347x500/N%2B2G6c.jpg" alt="JustTicTacToe">
+
+<p float="left">
+  <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM2NjU2NC5qcGc=/347x500/N%2B2G6c.jpg" width="200" alt="JustTicTacToe1"/>
+  <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM3MzQ4Ny5qcGc=/347x500/DJcvIB.jpg" width="200" alt="JustTicTacToeS"/> 
+  <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM2NjU2Ni5qcGc=/347x500/LNRIE1.jpg" width="200" alt="JustTicTacToe2"/>
+</p>
