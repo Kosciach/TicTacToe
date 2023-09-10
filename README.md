@@ -19,3 +19,16 @@
   <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM2NjU2Ni5qcGc=/347x500/LNRIE1.jpg" width="200" alt="JustTicTacToe2"/>
 </p>
 
+<h1 align="center"> </h1>
+
+<br>
+
+<h3 align="center">
+  <a href="BaseGameplay.md">BaseGameplay</a>
+</h3>
+
+<br>
+
+<h3 align="center">
+  <a href="Settings.md">Settings</a>
+</h3>
