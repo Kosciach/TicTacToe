@@ -9,7 +9,7 @@
 
 <div align="center">
   <p>
-    JustTicTacToe is a minimalist version of popular game TicTacToe.
+    JustTicTacToe is my version of popular game TicTacToe. I wanted to make something simple, like one of the games I have made in the past. It was a TicTacToe but with Star as an X, and Heart as an O. This time I went for minimalistic style and smooth transitions.
   </p>
 <br>
 
@@ -18,3 +18,4 @@
   <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM3MzQ4Ny5qcGc=/347x500/DJcvIB.jpg" width="200" alt="JustTicTacToeS"/> 
   <img src="https://img.itch.zone/aW1hZ2UvMjI1NDk1Ny8xMzM2NjU2Ni5qcGc=/347x500/LNRIE1.jpg" width="200" alt="JustTicTacToe2"/>
 </p>
+
