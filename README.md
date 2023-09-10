@@ -1,4 +1,4 @@
-<h1 align="center">JustTicTacToe - Readme not complete</h1>
+<h1 align="center">JustTicTacToe</h1>
 
 <p align="center">
   <a href="https://kosciach.itch.io/justtictactoe">
