@@ -9,7 +9,7 @@
 
 <div align="center">
   <p>
-    JustTicTacToe is a minimalistic version off popular game TicTacToe.
+    JustTicTacToe is a minimalistic version of popular game TicTacToe.
   </p>
 <br>
 
